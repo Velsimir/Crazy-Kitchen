@@ -3,17 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CuttingCounter : BaseCounter
+public class CuttingCounter : BaseCounter, IProgressBar
 {
     [SerializeField] private CuttingRecepiSO[] _cuttingRecepiSOArray;
 
-    public event EventHandler <OnProgressChangedEventArgs>  OnProgressChanged;
+    public event EventHandler <IProgressBar.OnProgressChangedEventArgs>  OnProgressChanged;
     public event EventHandler OnCut;
-
-    public class OnProgressChangedEventArgs : EventArgs
-    {
-        public float ProgressNormalized;
-    }
 
     private int _cuttingProgress;
     private int _minCuttingProgress = 0;
@@ -31,7 +26,7 @@ public class CuttingCounter : BaseCounter
 
                     CuttingRecepiSO cuttingRecepiSO = GetCuttingRecepiSOWithInput(GetKithcenObject().GetKitchenObjectSO());
 
-                    OnProgressChanged?.Invoke(this, new OnProgressChangedEventArgs
+                    OnProgressChanged?.Invoke(this, new IProgressBar.OnProgressChangedEventArgs
                     {
                         ProgressNormalized = (float) _cuttingProgress / cuttingRecepiSO.CuttingProgressMax
                     });
@@ -54,12 +49,10 @@ public class CuttingCounter : BaseCounter
             OnCut?.Invoke(this, EventArgs.Empty);
             CuttingRecepiSO cuttingRecepiSO = GetCuttingRecepiSOWithInput(GetKithcenObject().GetKitchenObjectSO());
 
-            OnProgressChanged?.Invoke(this, new OnProgressChangedEventArgs
+            OnProgressChanged?.Invoke(this, new IProgressBar.OnProgressChangedEventArgs 
             {
                 ProgressNormalized = (float)_cuttingProgress / cuttingRecepiSO.CuttingProgressMax
             });
-
-
 
             if (_cuttingProgress >= cuttingRecepiSO.CuttingProgressMax)
             {
