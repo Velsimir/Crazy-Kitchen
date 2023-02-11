@@ -21,6 +21,7 @@ public class StoveCounter : BaseCounter, IProgressBar
     private FryingRecepiSO _fryingRecepiSO;
     private BurningRecepiSO _burningRecepiSO;
     private State _state;
+    private PlateKitchenObject _plateKitchenObject;
 
     public enum State
     {
@@ -128,8 +129,32 @@ public class StoveCounter : BaseCounter, IProgressBar
         }
         else
         {
-            if (player.HasKithcenObject() == false)
+            if (player.HasKithcenObject())
+            {
+                if (player.GetKithcenObject().TryGetPlate(out _plateKitchenObject))
+                {
+                    if (_plateKitchenObject.TryAddingIngridient(GetKithcenObject().GetKitchenObjectSO()))
+                    {
+                        GetKithcenObject().DestrySelf();
+                        _state = State.Idle;
+
+                        OnProgressChanged?.Invoke(this, new IProgressBar.OnProgressChangedEventArgs
+                        {
+                            ProgressNormalized = 0f
+                        });
+
+                        OnStateChange?.Invoke(this, new OnStateChangeEventArgs
+                        {
+                            State = _state
+                        });
+                    }
+                }
+            }
+            else
+            {
                 GetKithcenObject().SetKitchenObjectParent(player);
+            }
+
             _state = State.Idle;
 
             OnProgressChanged?.Invoke(this, new IProgressBar.OnProgressChangedEventArgs

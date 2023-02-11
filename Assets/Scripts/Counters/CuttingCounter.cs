@@ -12,6 +12,7 @@ public class CuttingCounter : BaseCounter, IProgressBar
 
     private int _cuttingProgress;
     private int _minCuttingProgress = 0;
+    private PlateKitchenObject _plateKitchenObject;
 
     public override void Interact(Player player)
     {
@@ -35,8 +36,18 @@ public class CuttingCounter : BaseCounter, IProgressBar
         }
         else
         {
-            if (player.HasKithcenObject() == false)
+            if (player.HasKithcenObject())
+            {
+                if (player.GetKithcenObject().TryGetPlate(out _plateKitchenObject))
+                {
+                    if (_plateKitchenObject.TryAddingIngridient(GetKithcenObject().GetKitchenObjectSO()))
+                        GetKithcenObject().DestrySelf();
+                }
+            }
+            else
+            {
                 GetKithcenObject().SetKitchenObjectParent(player);
+            }
         }
     }
 

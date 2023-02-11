@@ -6,6 +6,8 @@ public class ClearCounter : BaseCounter
 {
     [SerializeField] private KitchenObjectSO _kitchenObjectSO;
 
+    private PlateKitchenObject _plateKitchenObject;
+
     public override void Interact(Player player)
     {
         if (HasKithcenObject() == false)
@@ -15,8 +17,30 @@ public class ClearCounter : BaseCounter
         }
         else
         {
-            if (player.HasKithcenObject() == false)
+            if (player.HasKithcenObject())
+            {
+                if (player.GetKithcenObject().TryGetPlate(out _plateKitchenObject))
+                {
+                    if (_plateKitchenObject.TryAddingIngridient(GetKithcenObject().GetKitchenObjectSO()))
+                    {
+                        GetKithcenObject().DestrySelf();
+                    }
+                }
+                else
+                {
+                    if (GetKithcenObject().TryGetPlate(out _plateKitchenObject))
+                    {
+                        if (_plateKitchenObject.TryAddingIngridient(player.GetKithcenObject().GetKitchenObjectSO()))
+                        {
+                            player.GetKithcenObject().DestrySelf();
+                        }
+                    }
+                }
+            }
+            else
+            {
                 GetKithcenObject().SetKitchenObjectParent(player);
+            }
         }
     }
 }
