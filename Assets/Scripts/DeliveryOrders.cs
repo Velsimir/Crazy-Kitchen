@@ -18,6 +18,7 @@ public class DeliveryOrders : MonoBehaviour
     public event EventHandler OnRecipeFailed ;
 
     private float _currentRecepiSpawnTimer;
+    private int _successfulRecipeAmout;
 
     private void Awake()
     {
@@ -78,6 +79,8 @@ public class DeliveryOrders : MonoBehaviour
                 {
                     _waitingRecepiSOList.RemoveAt(i);
 
+                    _successfulRecipeAmout++;
+
                     OnRecipeComplited?.Invoke(this, EventArgs.Empty);
                     OnRecipeSuccess?.Invoke(this,EventArgs.Empty);
 
@@ -92,5 +95,10 @@ public class DeliveryOrders : MonoBehaviour
     public List<RecepiSO> GetWaitingRecepiSOLists()
     {
         return _waitingRecepiSOList;
+    }
+
+    public int GetSuccessfilRecipeAmount()
+    {
+        return _successfulRecipeAmout;
     }
 }

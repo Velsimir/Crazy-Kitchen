@@ -45,13 +45,15 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     private void Start()
     {
         _gameInput.OnInteractAction += GameInput_OnInteractAction;
-        _gameInput.OnInteractAlternateAction += _gameInput_OnInteractAlternateAction;
+        _gameInput.OnInteractAlternateAction += GameInput_OnInteractAlternateAction;
     }
 
-    private void _gameInput_OnInteractAlternateAction(object sender, EventArgs e)
+    private void GameInput_OnInteractAlternateAction(object sender, EventArgs e)
     {
+        if (GameStates.Instance.IsGamePlaying() == false) return;
+
         if (_selectedCounter != null)
-            _selectedCounter.InteractAlternate(this);
+                _selectedCounter.InteractAlternate(this);
     }
 
     private void Update()
@@ -62,8 +64,10 @@ public class Player : MonoBehaviour, IKitchenObjectParent
 
     private void GameInput_OnInteractAction(object sender, EventArgs e)
     {
+        if (GameStates.Instance.IsGamePlaying() == false) return;
+
         if (_selectedCounter != null)
-            _selectedCounter.Interact(this);
+                _selectedCounter.Interact(this);
     }
 
     public bool IsWalking()
