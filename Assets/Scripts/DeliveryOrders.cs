@@ -14,6 +14,8 @@ public class DeliveryOrders : MonoBehaviour
 
     public event EventHandler OnRecipeSpawned;
     public event EventHandler OnRecipeComplited;
+    public event EventHandler OnRecipeSuccess;
+    public event EventHandler OnRecipeFailed ;
 
     private float _currentRecepiSpawnTimer;
 
@@ -77,13 +79,14 @@ public class DeliveryOrders : MonoBehaviour
                     _waitingRecepiSOList.RemoveAt(i);
 
                     OnRecipeComplited?.Invoke(this, EventArgs.Empty);
+                    OnRecipeSuccess?.Invoke(this,EventArgs.Empty);
 
                     return; 
                 }
             }
         }
 
-        Debug.Log("Player did not deliver a correct recipe");
+        OnRecipeFailed?.Invoke(this,EventArgs.Empty);
     }
 
     public List<RecepiSO> GetWaitingRecepiSOLists()

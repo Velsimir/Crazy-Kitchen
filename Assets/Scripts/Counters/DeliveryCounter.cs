@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class DeliveryCounter : BaseCounter
 {
+
+    public static DeliveryCounter Instanse { get; private set; }
+
+    private void Awake()
+    {
+        Instanse = this;
+    }
+
     public override void Interact(Player player)
     {
         if (player.HasKithcenObject())

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IKitchenObjectParent
 {
+    public event EventHandler OnPickSomething;
     public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
 
     public class OnSelectedCounterChangedEventArgs : EventArgs
@@ -157,6 +158,9 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     public void SetKithcenObject(KitchenObject kitchenObject)
     {
         _kitchenObject = kitchenObject;
+
+        if (kitchenObject != null)
+            OnPickSomething?.Invoke(this, EventArgs.Empty);
     }
 
     public KitchenObject GetKithcenObject()
