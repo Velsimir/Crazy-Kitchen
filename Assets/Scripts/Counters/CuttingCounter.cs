@@ -79,6 +79,11 @@ public class CuttingCounter : BaseCounter, IProgressBar
         }
     }
 
+    new public static void ResetStaticData()
+    {
+        OnAnyCut = null;
+    }
+
     private bool HasRecepiWithInput(KitchenObjectSO inputKitchenObject)
     {
         CuttingRecepiSO cuttingRecepiSO = GetCuttingRecepiSOWithInput(inputKitchenObject);
