@@ -35,6 +35,7 @@ public class StoveCounter : BaseCounter, IProgressBar
     {
         _state = State.Idle;
     }
+
     private void Update()
     {
         if (HasKithcenObject())
@@ -98,6 +99,11 @@ public class StoveCounter : BaseCounter, IProgressBar
                     break;
             }
         }
+    }
+
+    public bool IsFried()
+    {
+        return _state == State.Fried;
     }
 
     public override void Interact(Player player)

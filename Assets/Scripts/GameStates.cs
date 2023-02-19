@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class GameStates : MonoBehaviour
 {
+    [SerializeField] private float _gamePlayingTimerMax = 10f;
+     
     public static GameStates Instance { get; private set; }
     public event EventHandler OnStateChanged;
     public event EventHandler OnGamePaused;
@@ -19,10 +21,8 @@ public class GameStates : MonoBehaviour
     }
 
     private State _state;
-    private float _waitingToStartTimer = 1f;
     private float _countdownToStart = 3f;
     private float _gamePlayingTimer;
-    private float _gamePlayingTimerMax = 10f;
     private bool _isGamePaused = false;
 
     private void Awake()
@@ -35,6 +35,16 @@ public class GameStates : MonoBehaviour
     private void Start()
     {
         GameInput.Instanse.OnPause += GameInputOnPause;
+        GameInput.Instanse.OnInteractAction += GameInputOnInteractAction;
+    }
+
+    private void GameInputOnInteractAction(object sender, EventArgs e)
+    {
+        if (_state == State.WaitingToStart)
+        {
+            _state = State.CountdownToStart;
+            OnStateChanged?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     private void GameInputOnPause(object sender, EventArgs e)
@@ -48,12 +58,6 @@ public class GameStates : MonoBehaviour
         switch (_state)
         {
             case State.WaitingToStart:
-                _waitingToStartTimer -= Time.deltaTime;
-
-                if (_waitingToStartTimer <= 0f)
-                    _state = State.CountdownToStart;
-
-                OnStateChanged?.Invoke(this, EventArgs.Empty);
                 break;
 
             case State.CountdownToStart:

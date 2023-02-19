@@ -16,4 +16,4 @@ MonoBehaviour:
     type: 2}
   KitchenObjectSOOutput: {fileID: 11400000, guid: e7f6b013cd7e54aeb946ba62c1c3c6bb,
     type: 2}
-  FryingTimerMax: 3
+  FryingTimerMax: 5

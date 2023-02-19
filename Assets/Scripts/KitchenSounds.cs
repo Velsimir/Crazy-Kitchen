@@ -8,11 +8,16 @@ public class KitchenSounds : MonoBehaviour
 {
     [SerializeField] private AudioClipRefSO _audioClipRefSO;
 
+    private const string PlayerPrefsSoundEffectVolume = "SoundEffectVolume";
+    private float _volume = 1f;
+
     public static KitchenSounds Instanse { get; private set; }
 
     private void Awake()
     {
         Instanse = this;
+
+        _volume = PlayerPrefs.GetFloat(PlayerPrefsSoundEffectVolume, 1f);
     }
 
     private void Start()
@@ -25,9 +30,37 @@ public class KitchenSounds : MonoBehaviour
         TrashCounter.OnTrash += TrashCounterOnTrash;
     }
 
+    public void ChangeVolume()
+    {
+        _volume += 0.1f;
+
+        if (_volume > 1f)
+        {
+            _volume = 0f;
+        }
+
+        PlayerPrefs.SetFloat(PlayerPrefsSoundEffectVolume, _volume);
+        PlayerPrefs.Save();
+    }
+
+    public float GetVolume()
+    {
+        return _volume;
+    }
+
     public void PlayStepSound(Vector3 position, float volume)
     {
         PlaySound(_audioClipRefSO.FootStep, position, volume);
+    }
+
+    public void PlayCountdownSound()
+    {
+        PlaySound(_audioClipRefSO.Warning, Vector3.zero);
+    }
+
+    public void PlayWarningSound(Vector3 position)
+    {
+        PlaySound(_audioClipRefSO.Warning, position);
     }
 
     private void TrashCounterOnTrash(object sender, System.EventArgs e)
@@ -70,8 +103,8 @@ public class KitchenSounds : MonoBehaviour
         PlaySound(audioClipRange[Random.Range(0, audioClipRange.Length)], position, volume);
     }
 
-    private void PlaySound(AudioClip audioClip, Vector3 position, float volume = 1f)
+    private void PlaySound(AudioClip audioClip, Vector3 position, float volumeMultiplier = 1f)
     {
-        AudioSource.PlayClipAtPoint(audioClip, position, volume);
+        AudioSource.PlayClipAtPoint(audioClip, position, volumeMultiplier * _volume);
     }
 }

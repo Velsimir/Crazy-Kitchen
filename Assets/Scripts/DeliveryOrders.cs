@@ -35,7 +35,7 @@ public class DeliveryOrders : MonoBehaviour
         {
             _currentRecepiSpawnTimer = _recepiSpawnTimerMax;
 
-            if (_waitingRecepiSOList.Count < _waitingRecepiMax)
+            if (GameStates.Instance.IsGamePlaying() && _waitingRecepiSOList.Count < _waitingRecepiMax)
             {
                 RecepiSO recepiSO = _recepiSOList.GetRecepiSoList()[UnityEngine.Random.Range(0, _recepiSOList.GetRecepiSoList().Count)];
 

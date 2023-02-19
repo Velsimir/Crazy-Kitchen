@@ -5,17 +5,24 @@ using UnityEngine.UI;
 
 public class GamePausedUI : MonoBehaviour
 {
-    [SerializeField] private Button _resume;
-    [SerializeField] private Button _mainMenu;
+    [SerializeField] private Button _resumeButton;
+    [SerializeField] private Button _mainMenuButton;
+    [SerializeField] private Button _optionsButton;
 
     private void Awake()
     {
-        _resume.onClick.AddListener(() =>
+        _resumeButton.onClick.AddListener(() =>
         {
-            GameStates.Instance.IsGamePlaying();
+            GameStates.Instance.TogglePauseGame();
         });
 
-        _mainMenu.onClick.AddListener(() =>
+        _optionsButton.onClick.AddListener(() =>
+        {
+            Hide();
+            OptionsUI.Instanse.Show(Show );
+        });
+
+        _mainMenuButton.onClick.AddListener(() =>
         {
             LoadingScreen.Load(LoadingScreen.Scene.MainMenuScene);
         });
@@ -42,6 +49,8 @@ public class GamePausedUI : MonoBehaviour
     private void Show()
     {
         gameObject.SetActive(true);
+
+        _resumeButton.Select();
     }
 
     private void Hide()

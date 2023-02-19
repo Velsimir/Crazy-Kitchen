@@ -24,7 +24,7 @@ public class PlatesCounter : BaseCounter
         {
             _currentTimerSpawnPlate = _defoultTimerSpawnPlate;
 
-            if (_currentPlatesCount < _maxPlatesSpawnCount)
+            if (GameStates.Instance.IsGamePlaying() && _currentPlatesCount < _maxPlatesSpawnCount)
             {
                 _currentPlatesCount++;
 
