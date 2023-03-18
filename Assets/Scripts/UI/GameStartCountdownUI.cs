@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 [RequireComponent(typeof(Animator))]
-
 public class GameStartCountdownUI : MonoBehaviour
 {
     private const string NumberPopup = "NumberPopup";
@@ -26,6 +23,16 @@ public class GameStartCountdownUI : MonoBehaviour
     }
 
     private void Update()
+    {
+        CountTimer();
+    }
+
+    private void OnDisable()
+    {
+        GameStates.Instance.OnStateChanged -= Instance_OnStateChanged;
+    }
+
+    private void CountTimer()
     {
         _countdownTimer = Mathf.CeilToInt(GameStates.Instance.GetCountdownStartTimer());
         _countdownText.text = _countdownTimer.ToString();

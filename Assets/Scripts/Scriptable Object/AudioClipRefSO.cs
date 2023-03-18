@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu()]
-
+[CreateAssetMenu(menuName = "AudioClipReferens", order = 52)]
 public class AudioClipRefSO : ScriptableObject
 {
     public AudioClip[] Chop;

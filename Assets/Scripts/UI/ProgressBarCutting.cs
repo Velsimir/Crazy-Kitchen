@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +17,11 @@ public class ProgressBarCutting : MonoBehaviour
         _cuttingImage.fillAmount = 0f;
 
         Hide();
+    }
+
+    private void OnDisable()
+    {
+        _progressBar.OnProgressChanged -= OnProgressChanged;
     }
 
     private void OnProgressChanged(object sender, IProgressBar.OnProgressChangedEventArgs e)

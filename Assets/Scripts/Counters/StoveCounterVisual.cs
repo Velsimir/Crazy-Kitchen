@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StoveCounterVisual : MonoBehaviour
@@ -13,6 +11,11 @@ public class StoveCounterVisual : MonoBehaviour
     private void Start()
     {
         _stoveCounter.OnStateChange += StoveCounter_OnStateChange;
+    }
+
+    private void OnDisable()
+    {
+        _stoveCounter.OnStateChange -= StoveCounter_OnStateChange;
     }
 
     private void StoveCounter_OnStateChange(object sender, StoveCounter.OnStateChangeEventArgs e)

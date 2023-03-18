@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CuttinCounterVisual : MonoBehaviour
@@ -7,21 +5,22 @@ public class CuttinCounterVisual : MonoBehaviour
     [SerializeField] private BaseCounter _baseCounter;
     [SerializeField] private GameObject[] _visualGameObjectArray;
 
-    private void Start()
+    private void OnEnable()
     {
         Player.Instance.OnSelectedCounterChanged += Player_OnSelectedCounterChanged;
+    }
+
+    private void OnDisable()
+    {
+        Player.Instance.OnSelectedCounterChanged -= Player_OnSelectedCounterChanged;
     }
 
     private void Player_OnSelectedCounterChanged(object sender, Player.OnSelectedCounterChangedEventArgs e)
     {
         if (e.SelectCounter == _baseCounter)
-        {
             Show();
-        }
         else
-        {
             Hide();
-        }
     }
 
     private void Show()

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,6 +32,12 @@ public class GamePausedUI : MonoBehaviour
         GameStates.Instance.OnGameUnpaused += GameStatesOnGameUnpaused;
 
         Hide();
+    }
+
+    private void OnDisable()
+    {
+        GameStates.Instance.OnGamePaused -= GameStatesOnGamePaused;
+        GameStates.Instance.OnGameUnpaused -= GameStatesOnGameUnpaused;
     }
 
     private void GameStatesOnGameUnpaused(object sender, System.EventArgs e)

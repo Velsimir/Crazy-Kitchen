@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlateIconsUI : MonoBehaviour
@@ -16,6 +13,11 @@ public class PlateIconsUI : MonoBehaviour
     private void Start()
     {
         _plateKitchenObject.OnIngridientAdded += PlateKitchenObject_OnIngridientAdded;
+    }
+
+    private void OnDisable()
+    {
+        _plateKitchenObject.OnIngridientAdded -= PlateKitchenObject_OnIngridientAdded;
     }
 
     private void PlateKitchenObject_OnIngridientAdded(object sender, PlateKitchenObject.OnIngridientAddedEventArgs e)

@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-
 public class StoveBurnFlashingBarUI : MonoBehaviour
 {
     private const string IsFlashing = "IsFlashing";
@@ -22,6 +19,11 @@ public class StoveBurnFlashingBarUI : MonoBehaviour
     private void Start()
     {
         _stoveCounter.OnProgressChanged += StoveCounterOnProgressChanged;
+    }
+
+    private void OnDisable()
+    {
+        _stoveCounter.OnProgressChanged -= StoveCounterOnProgressChanged;
     }
 
     private void StoveCounterOnProgressChanged(object sender, IProgressBar.OnProgressChangedEventArgs e)

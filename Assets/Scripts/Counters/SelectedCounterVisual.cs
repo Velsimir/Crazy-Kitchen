@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SelectedCounterVisual : MonoBehaviour
@@ -12,16 +10,17 @@ public class SelectedCounterVisual : MonoBehaviour
         Player.Instance.OnSelectedCounterChanged += Player_OnSelectedCounterChanged;
     }
 
+    private void OnDisable()
+    {
+        Player.Instance.OnSelectedCounterChanged -= Player_OnSelectedCounterChanged;
+    }
+
     private void Player_OnSelectedCounterChanged(object sender, Player.OnSelectedCounterChangedEventArgs e)
     {
         if (e.SelectCounter == _baseCounter)
-        {
             Show();
-        }
         else
-        {
             Hide();
-        }
     }
 
     private void Show()

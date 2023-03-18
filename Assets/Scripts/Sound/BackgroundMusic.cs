@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-
 public class BackgroundMusic : MonoBehaviour
 {
     private const string PlayerPrefsBackgroundMusicVolume = "BackgroundMusicVolume";
@@ -29,9 +26,7 @@ public class BackgroundMusic : MonoBehaviour
         _volume += 0.1f;
 
         if (_volume > 1f)
-        {
             _volume = 0f;
-        }
 
         _audioSource.volume = _volume;
 

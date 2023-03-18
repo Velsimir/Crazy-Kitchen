@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -26,12 +24,16 @@ public class TutorialUI : MonoBehaviour
         Show();
     }
 
+    private void OnDisable()
+    {
+        GameInput.Instanse.OnBindingRebind -= GameInputOnBindingRebind;
+        GameStates.Instance.OnStateChanged -= GameStatesOnStateChanged;
+    }
+
     private void GameStatesOnStateChanged(object sender, System.EventArgs e)
     {
         if (GameStates.Instance.IsCountdownStart())
-        {
             Hide();
-        }
     }
 
     private void GameInputOnBindingRebind(object sender, System.EventArgs e)

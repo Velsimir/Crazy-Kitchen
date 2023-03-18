@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -15,16 +13,14 @@ public class DeliveriOrderSingleUI : MonoBehaviour
         _iconTemplate.gameObject.SetActive(false);
     }
 
-    public void SetRecipeSOName(RecepiSO recepiSO)
+    public void SetRecipeSOName(RecipeSO recepiSO)
     {
         _recipeNameText.text = recepiSO.GetName();
 
         foreach (Transform child in _iconContainer)
         {
             if (child == _iconTemplate) continue;
-            {
                 Destroy(child.gameObject);
-            }
         }
 
         foreach (KitchenObjectSO kitchenObjectSO in recepiSO.GetKitchenObjectSOList())

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -12,8 +10,9 @@ public class GameOverUI : MonoBehaviour
         GameStates.Instance.OnStateChanged += Instance_OnStateChanged;
     }
 
-    private void Update()
+    private void OnDisable()
     {
+        GameStates.Instance.OnStateChanged -= Instance_OnStateChanged;
     }
 
     private void Instance_OnStateChanged(object sender, System.EventArgs e)

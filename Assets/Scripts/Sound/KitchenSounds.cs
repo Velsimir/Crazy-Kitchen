@@ -1,17 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-
 public class KitchenSounds : MonoBehaviour
 {
+    private const string PlayerPrefsSoundEffectVolume = "SoundEffectVolume";
+
     [SerializeField] private AudioClipRefSO _audioClipRefSO;
 
-    private const string PlayerPrefsSoundEffectVolume = "SoundEffectVolume";
-    private float _volume = 1f;
-
     public static KitchenSounds Instanse { get; private set; }
+
+    private float _volume = 1f;
 
     private void Awake()
     {
@@ -30,14 +28,22 @@ public class KitchenSounds : MonoBehaviour
         TrashCounter.OnTrash += TrashCounterOnTrash;
     }
 
+    private void OnDisable()
+    {
+        DeliveryOrders.Instance.OnRecipeSuccess -= DeliveryOrdersOnRecipeSuccess;
+        DeliveryOrders.Instance.OnRecipeFailed -= DeliveryOrdersOnRecipeFailed;
+        CuttingCounter.OnAnyCut -= CuttingCounterOnAnyCut;
+        Player.Instance.OnPickSomething -= PlayerOnPickSomething;
+        BaseCounter.OnAnyObjectPlacedHere -= BaseCounterOnAnyObjectPlacedHere;
+        TrashCounter.OnTrash -= TrashCounterOnTrash;
+    }
+
     public void ChangeVolume()
     {
         _volume += 0.1f;
 
         if (_volume > 1f)
-        {
             _volume = 0f;
-        }
 
         PlayerPrefs.SetFloat(PlayerPrefsSoundEffectVolume, _volume);
         PlayerPrefs.Save();

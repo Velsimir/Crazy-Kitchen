@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-
 public class ContainerCounterAnimator : MonoBehaviour
 {
     private const string OPEN_CLOSE = "OpenClose";

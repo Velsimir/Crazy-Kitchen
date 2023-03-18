@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu()]
-
+[CreateAssetMenu(menuName = "KitchenObject/KitchenObject", order = 52)]
 public class KitchenObjectSO : ScriptableObject
 {
     public Transform Prefab;

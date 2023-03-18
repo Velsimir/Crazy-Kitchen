@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
 [RequireComponent(typeof(Animator))]
-
 public class DeliveryResultUI : MonoBehaviour
 {
     private const string Popup = "Popup"; 
@@ -33,6 +30,12 @@ public class DeliveryResultUI : MonoBehaviour
         DeliveryOrders.Instance.OnRecipeFailed += DeliveryOrdersOnRecipeFailed;
 
         gameObject.SetActive(false);
+    }
+
+    private void OnDisable()
+    {
+        DeliveryOrders.Instance.OnRecipeSuccess -= DeliveryOrdersOnRecipeSuccess;
+        DeliveryOrders.Instance.OnRecipeFailed -= DeliveryOrdersOnRecipeFailed;
     }
 
     private void DeliveryOrdersOnRecipeFailed(object sender, System.EventArgs e)

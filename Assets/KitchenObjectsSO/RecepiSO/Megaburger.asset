@@ -12,10 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eea7d3e2f697f46d5a9251499fd4c913, type: 3}
   m_Name: Megaburger
   m_EditorClassIdentifier: 
-  _kitchenObjectSOList:
-  - {fileID: 11400000, guid: e7f6b013cd7e54aeb946ba62c1c3c6bb, type: 2}
-  - {fileID: 11400000, guid: ef3a06762fb4d4452a164cd4cc868c29, type: 2}
-  - {fileID: 11400000, guid: 3de63cb14fc2d471fb88920e57582efc, type: 2}
-  - {fileID: 11400000, guid: 2a95903f614d448d49de408ce04a2c72, type: 2}
-  - {fileID: 11400000, guid: 5713e68ca635e48b7a557f022e8143e4, type: 2}
-  _recepiName: Megaburger
+  _kitchenObjectSOList: []
+  _recepiName: 

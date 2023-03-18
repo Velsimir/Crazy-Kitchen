@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eea7d3e2f697f46d5a9251499fd4c913, type: 3}
   m_Name: Burger
   m_EditorClassIdentifier: 
-  _kitchenObjectSOList:
-  - {fileID: 11400000, guid: e7f6b013cd7e54aeb946ba62c1c3c6bb, type: 2}
-  - {fileID: 11400000, guid: ef3a06762fb4d4452a164cd4cc868c29, type: 2}
-  _recepiName: Burger
+  _kitchenObjectSOList: []
+  _recepiName: 

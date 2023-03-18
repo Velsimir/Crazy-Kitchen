@@ -12,8 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 824cb9fe386c24a61a920bafff0a047d, type: 3}
   m_Name: MeatPartyCkooked-MeatPartyBurned
   m_EditorClassIdentifier: 
-  KitchenObjectSOInput: {fileID: 11400000, guid: e7f6b013cd7e54aeb946ba62c1c3c6bb,
-    type: 2}
-  KitchenObjectSOOutput: {fileID: 11400000, guid: fabe7e01d12314a92aa52dac10064bab,
-    type: 2}
-  BurningTimerMax: 6
+  KitchenObjectSOInput: {fileID: 0}
+  KitchenObjectSOOutput: {fileID: 0}
+  BurningTimerMax: 0

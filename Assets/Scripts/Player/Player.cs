@@ -1,13 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour, IKitchenObjectParent
 {
-    public event EventHandler OnPickSomething;
-    public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
-
     public class OnSelectedCounterChangedEventArgs : EventArgs
     {
         public BaseCounter SelectCounter;
@@ -18,6 +13,10 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     [SerializeField] private GameInput _gameInput;
     [SerializeField] private LayerMask _counterLayerMask;
     [SerializeField] private Transform _counterTopPoint;
+
+    public event EventHandler OnPickSomething;
+    public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
+    public static Player Instance { get; private set; }
 
     private float _playerRadius = .7f;
     private float _playerHeigh = 2f;
@@ -31,8 +30,6 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     private RaycastHit _rayCastHit;
     private BaseCounter _selectedCounter;
     private KitchenObject _kitchenObject;
-
-    public static Player Instance { get; private set; }
 
     private void Awake()
     {
@@ -48,18 +45,24 @@ public class Player : MonoBehaviour, IKitchenObjectParent
         _gameInput.OnInteractAlternateAction += GameInput_OnInteractAlternateAction;
     }
 
+    private void Update()
+    {
+        HandleMovement();
+        HandleInteraction();
+    }
+
+    private void OnDisable()
+    {
+        _gameInput.OnInteractAction -= GameInput_OnInteractAction;
+        _gameInput.OnInteractAlternateAction -= GameInput_OnInteractAlternateAction;
+    }
+
     private void GameInput_OnInteractAlternateAction(object sender, EventArgs e)
     {
         if (GameStates.Instance.IsGamePlaying() == false) return;
 
         if (_selectedCounter != null)
                 _selectedCounter.InteractAlternate(this);
-    }
-
-    private void Update()
-    {
-        HandleMovement();
-        HandleInteraction();
     }
 
     private void GameInput_OnInteractAction(object sender, EventArgs e)
@@ -92,14 +95,10 @@ public class Player : MonoBehaviour, IKitchenObjectParent
                     SetSelectedCounter(baseCounter);
             }
             else
-            {
                 SetSelectedCounter(null);
-            }
         }
         else
-        {
             SetSelectedCounter(null);
-        }
     }
 
     private void SetSelectedCounter(BaseCounter baseCounter)
@@ -131,9 +130,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
         _playerRadius, moveDirectionX, _moveDistance);
 
             if (_canMove)
-            {
                 _moveDirection = moveDirectionX;
-            }
             else
             {
                 Vector3 moveDirectionZ = new Vector3(0, 0, _moveDirection.z).normalized;

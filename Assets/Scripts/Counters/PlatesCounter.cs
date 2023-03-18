@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlatesCounter : BaseCounter
@@ -18,19 +16,7 @@ public class PlatesCounter : BaseCounter
 
     private void Update()
     {
-        _currentTimerSpawnPlate += Time.deltaTime;
-
-        if (_currentTimerSpawnPlate > _maxTimerSpawnPlate)
-        {
-            _currentTimerSpawnPlate = _defoultTimerSpawnPlate;
-
-            if (GameStates.Instance.IsGamePlaying() && _currentPlatesCount < _maxPlatesSpawnCount)
-            {
-                _currentPlatesCount++;
-
-                OnPlatesSpawn?.Invoke(this,EventArgs.Empty);
-            }
-        }
+        SpawnPlates();
     }
 
     public override void Interact(Player player)
@@ -44,6 +30,23 @@ public class PlatesCounter : BaseCounter
                 KitchenObject.SpawnKitchenObject(_kitchenObjectSO, player);
 
                 OnPlatesRemoved?.Invoke(this,EventArgs.Empty);
+            }
+        }
+    }
+
+    private void SpawnPlates()
+    {
+        _currentTimerSpawnPlate += Time.deltaTime;
+
+        if (_currentTimerSpawnPlate > _maxTimerSpawnPlate)
+        {
+            _currentTimerSpawnPlate = _defoultTimerSpawnPlate;
+
+            if (GameStates.Instance.IsGamePlaying() && _currentPlatesCount < _maxPlatesSpawnCount)
+            {
+                _currentPlatesCount++;
+
+                OnPlatesSpawn?.Invoke(this, EventArgs.Empty);
             }
         }
     }

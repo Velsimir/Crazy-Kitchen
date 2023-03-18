@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameStates : MonoBehaviour
@@ -38,6 +36,32 @@ public class GameStates : MonoBehaviour
         GameInput.Instanse.OnInteractAction += GameInputOnInteractAction;
     }
 
+    private void Update()
+    {
+        switch (_state)
+        {
+            case State.WaitingToStart:
+                break;
+
+            case State.CountdownToStart:
+                CountdownToStart();
+                break;
+
+            case State.GamePlaying:
+                GamePlaying();
+                break;
+
+            case State.GameOver:
+                break;
+        }
+    }
+
+    private void OnDisable()
+    {
+        GameInput.Instanse.OnPause -= GameInputOnPause;
+        GameInput.Instanse.OnInteractAction -= GameInputOnInteractAction;
+    }
+
     private void GameInputOnInteractAction(object sender, EventArgs e)
     {
         if (_state == State.WaitingToStart)
@@ -50,43 +74,6 @@ public class GameStates : MonoBehaviour
     private void GameInputOnPause(object sender, EventArgs e)
     {
         TogglePauseGame();
-    }
-
-
-    private void Update()
-    {
-        switch (_state)
-        {
-            case State.WaitingToStart:
-                break;
-
-            case State.CountdownToStart:
-                _countdownToStart -= Time.deltaTime;
-
-                if (_countdownToStart <= 0f)
-                {
-                    _state = State.GamePlaying;
-
-                    _gamePlayingTimer = _gamePlayingTimerMax;
-                    OnStateChanged?.Invoke(this, EventArgs.Empty);
-                }
-                    
-                break;
-
-            case State.GamePlaying:
-                _gamePlayingTimer -= Time.deltaTime;
-
-                if (_gamePlayingTimer <= 0f)
-                    _state = State.GameOver;
-
-                OnStateChanged?.Invoke(this, EventArgs.Empty);
-                break;
-
-            case State.GameOver:
-                break;
-        }
-
-        Debug.Log(_state);
     }
 
     public bool IsGamePlaying()
@@ -109,7 +96,7 @@ public class GameStates : MonoBehaviour
         return _countdownToStart;
     }
 
-    public float GetGamePlayinTimerNormalized ()
+    public float GetGamePlayinTimerNormalized()
     {
         return 1 - _gamePlayingTimer / _gamePlayingTimerMax;
     }
@@ -127,6 +114,29 @@ public class GameStates : MonoBehaviour
         {
             Time.timeScale = 1f;
             OnGameUnpaused?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
+    private void GamePlaying()
+    {
+        _gamePlayingTimer -= Time.deltaTime;
+
+        if (_gamePlayingTimer <= 0f)
+            _state = State.GameOver;
+
+        OnStateChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void CountdownToStart()
+    {
+        _countdownToStart -= Time.deltaTime;
+
+        if (_countdownToStart <= 0f)
+        {
+            _state = State.GamePlaying;
+
+            _gamePlayingTimer = _gamePlayingTimerMax;
+            OnStateChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

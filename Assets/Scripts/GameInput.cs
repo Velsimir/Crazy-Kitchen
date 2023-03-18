@@ -1,17 +1,16 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class GameInput : MonoBehaviour
 {
+    private const string PlayerPrefBindings = "InputBindings";
+
+    public static GameInput Instanse { get; private set; }
     public event EventHandler OnInteractAction;
     public event EventHandler OnInteractAlternateAction;
     public event EventHandler OnPause;
     public event EventHandler OnBindingRebind;
-
-    private const string PlayerPrefBindings = "InputBindings";
     public enum Binding
     {
         MoveUp,
@@ -29,8 +28,6 @@ public class GameInput : MonoBehaviour
     private PlayerInput _playerInput;
     private Vector2 _inputVector;
 
-    public static GameInput Instanse { get; private set; }
-
     private void Awake()
     {
         Instanse = this;
@@ -45,10 +42,26 @@ public class GameInput : MonoBehaviour
         _playerInput.Enable();
 
         _playerInput.Player.Interaction.performed += Interaction_performed;
+        _playerInput.Player.InteractionAlternate.performed += InteractionAlternate_performed;
+        _playerInput.Player.Pause.performed += Pause_performed;
+    }
+
+    private void OnDisable()
+    {
+        _playerInput.Player.Interaction.performed -= Interaction_performed;
+        _playerInput.Player.InteractionAlternate.performed -= InteractionAlternate_performed;
+        _playerInput.Player.Pause.performed -= Pause_performed;
+    }
+
+    private void OnDestroy()
+    {
+        _playerInput.Player.Interaction.performed += Interaction_performed;
 
         _playerInput.Player.InteractionAlternate.performed += InteractionAlternate_performed;
 
         _playerInput.Player.Pause.performed += Pause_performed;
+
+        _playerInput.Dispose();
     }
 
     public string GetBindingText(Binding binding)
@@ -152,16 +165,7 @@ public class GameInput : MonoBehaviour
         return _inputVector;
     }
 
-    private void OnDestroy()
-    {
-        _playerInput.Player.Interaction.performed += Interaction_performed;
 
-        _playerInput.Player.InteractionAlternate.performed += InteractionAlternate_performed;
-
-        _playerInput.Player.Pause.performed += Pause_performed;
-
-        _playerInput.Dispose();
-    }
 
     private void Pause_performed(InputAction.CallbackContext obj)
     {

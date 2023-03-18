@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ClearCounter : BaseCounter
@@ -22,25 +20,19 @@ public class ClearCounter : BaseCounter
                 if (player.GetKithcenObject().TryGetPlate(out _plateKitchenObject))
                 {
                     if (_plateKitchenObject.TryAddingIngridient(GetKithcenObject().GetKitchenObjectSO()))
-                    {
                         GetKithcenObject().DestrySelf();
-                    }
                 }
                 else
                 {
                     if (GetKithcenObject().TryGetPlate(out _plateKitchenObject))
                     {
                         if (_plateKitchenObject.TryAddingIngridient(player.GetKithcenObject().GetKitchenObjectSO()))
-                        {
                             player.GetKithcenObject().DestrySelf();
-                        }
                     }
                 }
             }
             else
-            {
                 GetKithcenObject().SetKitchenObjectParent(player);
-            }
         }
     }
 }

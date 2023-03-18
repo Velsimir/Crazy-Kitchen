@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -35,7 +33,6 @@ public class OptionsUI : MonoBehaviour
     [SerializeField] private Transform _pressToRebindKeyTransform;
 
     private Action _onCloseButtonAction;
-
 
     public static OptionsUI Instanse { get; private set; }
 
@@ -81,6 +78,11 @@ public class OptionsUI : MonoBehaviour
 
         HidePressRebindKey();
         Hide();
+    }
+
+    private void OnDisable()
+    {
+        GameStates.Instance.OnGamePaused -= GameStatesOnGamePaused;
     }
 
     public void Show(Action onCloseButtonAction)
@@ -132,6 +134,7 @@ public class OptionsUI : MonoBehaviour
     private void RebindBindig(GameInput.Binding binding)
     {
         ShowPressRebindKey();
+
         GameInput.Instanse.RebindBinding(binding, () =>
         {
             HidePressRebindKey();

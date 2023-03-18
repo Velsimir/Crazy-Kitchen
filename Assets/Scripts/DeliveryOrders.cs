@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,8 +6,8 @@ public class DeliveryOrders : MonoBehaviour
 {
     public static DeliveryOrders Instance { get; private set; }
 
-    [SerializeField] private RecepiSOList _recepiSOList;
-    [SerializeField] private List<RecepiSO> _waitingRecepiSOList;
+    [SerializeField] private RecipeSOList _recepiSOList;
+    [SerializeField] private List<RecipeSO> _waitingRecepiSOList;
     [SerializeField] private float _recepiSpawnTimerMax = 4f;
     [SerializeField] private int _waitingRecepiMax = 4;
 
@@ -24,33 +23,19 @@ public class DeliveryOrders : MonoBehaviour
     {
         Instance = this;
 
-        _waitingRecepiSOList = new List<RecepiSO>();
+        _waitingRecepiSOList = new List<RecipeSO>();
     }
 
     private void Update()
     {
-        _currentRecepiSpawnTimer -= Time.deltaTime;
-
-        if (_currentRecepiSpawnTimer <= 0)
-        {
-            _currentRecepiSpawnTimer = _recepiSpawnTimerMax;
-
-            if (GameStates.Instance.IsGamePlaying() && _waitingRecepiSOList.Count < _waitingRecepiMax)
-            {
-                RecepiSO recepiSO = _recepiSOList.GetRecepiSoList()[UnityEngine.Random.Range(0, _recepiSOList.GetRecepiSoList().Count)];
-
-                _waitingRecepiSOList.Add(recepiSO);
-
-                OnRecipeSpawned?.Invoke(this, EventArgs.Empty);
-            }
-        }
+        RecipesSpawn();
     }
 
     public void DeliverRecepi(PlateKitchenObject plateKitchenObject)
     {
         for (int i = 0; i < _waitingRecepiSOList.Count; i++)
         {
-            RecepiSO waitingRecepiSO = _waitingRecepiSOList[i];
+            RecipeSO waitingRecepiSO = _waitingRecepiSOList[i];
 
             if (waitingRecepiSO.GetKitchenObjectSOList().Count == plateKitchenObject.GetKitchenObjectSOList().Count)
             {
@@ -92,7 +77,7 @@ public class DeliveryOrders : MonoBehaviour
         OnRecipeFailed?.Invoke(this,EventArgs.Empty);
     }
 
-    public List<RecepiSO> GetWaitingRecepiSOLists()
+    public List<RecipeSO> GetWaitingRecepiSOLists()
     {
         return _waitingRecepiSOList;
     }
@@ -100,5 +85,24 @@ public class DeliveryOrders : MonoBehaviour
     public int GetSuccessfilRecipeAmount()
     {
         return _successfulRecipeAmout;
+    }
+
+    private void RecipesSpawn()
+    {
+        _currentRecepiSpawnTimer -= Time.deltaTime;
+
+        if (_currentRecepiSpawnTimer <= 0)
+        {
+            _currentRecepiSpawnTimer = _recepiSpawnTimerMax;
+
+            if (GameStates.Instance.IsGamePlaying() && _waitingRecepiSOList.Count < _waitingRecepiMax)
+            {
+                RecipeSO recepiSO = _recepiSOList.GetRecepiSoList()[UnityEngine.Random.Range(0, _recepiSOList.GetRecepiSoList().Count)];
+
+                _waitingRecepiSOList.Add(recepiSO);
+
+                OnRecipeSpawned?.Invoke(this, EventArgs.Empty);
+            }
+        }
     }
 }

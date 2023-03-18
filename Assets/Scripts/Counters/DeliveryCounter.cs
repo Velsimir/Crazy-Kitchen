@@ -1,10 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class DeliveryCounter : BaseCounter
 {
-
     public static DeliveryCounter Instanse { get; private set; }
 
     private void Awake()

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DeliveryOrdersUI : MonoBehaviour
@@ -20,6 +18,12 @@ public class DeliveryOrdersUI : MonoBehaviour
         UpdateVisual();
     }
 
+    private void OnDisable()
+    {
+        DeliveryOrders.Instance.OnRecipeSpawned -= DeliveryManageOnRecipeSpawned;
+        DeliveryOrders.Instance.OnRecipeComplited -= DeliveryManageOnRecipeComplited;
+    }
+
     private void DeliveryManageOnRecipeSpawned(object sender, System.EventArgs e)
     {
         UpdateVisual();
@@ -35,12 +39,10 @@ public class DeliveryOrdersUI : MonoBehaviour
         foreach (Transform child in _container)
         {
             if (child == _recipeTemplate) continue;
-            {
                 Destroy(child.gameObject);
-            }
         }
 
-        foreach (RecepiSO recipeSO in DeliveryOrders.Instance.GetWaitingRecepiSOLists())
+        foreach (RecipeSO recipeSO in DeliveryOrders.Instance.GetWaitingRecepiSOLists())
         {
             Transform resipeTransform = Instantiate(_recipeTemplate, _container);
 

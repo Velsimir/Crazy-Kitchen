@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-
 public class StoveCounterSound : MonoBehaviour
 {
     [SerializeField] private StoveCounter _stoveCounter;
@@ -26,6 +23,17 @@ public class StoveCounterSound : MonoBehaviour
     }
 
     private void Update()
+    {
+        AlarmWarning();
+    }
+
+    private void OnDisable()
+    {
+        _stoveCounter.OnStateChange -= StoveCounterOnStateChange;
+        _stoveCounter.OnProgressChanged -= StoveCounterOnProgressChanged;
+    }
+
+    private void AlarmWarning()
     {
         if (_isWorningSound)
         {

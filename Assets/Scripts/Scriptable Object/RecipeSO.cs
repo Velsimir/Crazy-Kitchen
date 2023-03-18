@@ -1,10 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu()]
-
-public class RecepiSO : ScriptableObject
+[CreateAssetMenu(order = 52, menuName = "Recepies/Recipe")]
+public class RecipeSO : ScriptableObject
 {
     [SerializeField] private List<KitchenObjectSO> _kitchenObjectSOList;
     [SerializeField] private string _recepiName;

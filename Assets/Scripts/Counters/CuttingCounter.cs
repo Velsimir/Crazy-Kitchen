@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CuttingCounter : BaseCounter, IProgressBar
@@ -46,15 +44,13 @@ public class CuttingCounter : BaseCounter, IProgressBar
                 }
             }
             else
-            {
                 GetKithcenObject().SetKitchenObjectParent(player);
-            }
         }
     }
 
     public override void InteractAlternate(Player player)
     {
-        if (HasKithcenObject() && GetKithcenObject().GetKitchenObjectSO())
+        if (HasKithcenObject() && GetKithcenObject().GetKitchenObjectSO() == HasRecepiWithInput(GetKithcenObject().GetKitchenObjectSO()))
         {
             _cuttingProgress++;
 
@@ -63,7 +59,7 @@ public class CuttingCounter : BaseCounter, IProgressBar
 
             CuttingRecepiSO cuttingRecepiSO = GetCuttingRecepiSOWithInput(GetKithcenObject().GetKitchenObjectSO());
 
-            OnProgressChanged?.Invoke(this, new IProgressBar.OnProgressChangedEventArgs 
+            OnProgressChanged?.Invoke(this, new IProgressBar.OnProgressChangedEventArgs
             {
                 ProgressNormalized = (float)_cuttingProgress / cuttingRecepiSO.CuttingProgressMax
             });
@@ -106,9 +102,7 @@ public class CuttingCounter : BaseCounter, IProgressBar
         foreach (var cuttingRecepiSO in _cuttingRecepiSOArray)
         {
             if (cuttingRecepiSO.KitchenObjectSOInput == inputKitchenObjectSO)
-            {
                 return cuttingRecepiSO;
-            }
         }
 
         return null;

@@ -10933,9 +10933,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _counterTopPoint: {fileID: 4215645019203044953}
   _fryingRecepiSOArray:
-  - {fileID: 11400000, guid: e1c736865c6914423998cc1e6b6ffc18, type: 2}
+  - {fileID: 11400000, guid: 6735e3cdde80941ab8ff34e06a1138f8, type: 2}
   _burningRecepiSOArray:
-  - {fileID: 11400000, guid: 49900a9c8a6d14c6eae8ea142b5facaa, type: 2}
+  - {fileID: 11400000, guid: 6603c4e2b556942fab80edd6da24f475, type: 2}
 --- !u!1001 &3041284033045030849
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu()]
-public class BurningRecepiSO : ScriptableObject
+[CreateAssetMenu(menuName = "Recepies/BurningRecipe", order = 52)]
+public class BurningRecipeSO : ScriptableObject
 {
     public KitchenObjectSO KitchenObjectSOInput;
     public KitchenObjectSO KitchenObjectSOOutput;
