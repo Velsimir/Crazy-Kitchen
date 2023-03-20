@@ -5,7 +5,7 @@ public class CuttinCounterVisual : MonoBehaviour
     [SerializeField] private BaseCounter _baseCounter;
     [SerializeField] private GameObject[] _visualGameObjectArray;
 
-    private void OnEnable()
+    private void Start()
     {
         Player.Instance.OnSelectedCounterChanged += Player_OnSelectedCounterChanged;
     }

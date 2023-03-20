@@ -18,12 +18,6 @@ public class DeliveryOrdersUI : MonoBehaviour
         UpdateVisual();
     }
 
-    private void OnDisable()
-    {
-        DeliveryOrders.Instance.OnRecipeSpawned -= DeliveryManageOnRecipeSpawned;
-        DeliveryOrders.Instance.OnRecipeComplited -= DeliveryManageOnRecipeComplited;
-    }
-
     private void DeliveryManageOnRecipeSpawned(object sender, System.EventArgs e)
     {
         UpdateVisual();

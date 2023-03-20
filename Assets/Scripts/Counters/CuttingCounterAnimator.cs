@@ -19,6 +19,11 @@ public class CuttingCounterAnimator : MonoBehaviour
         _cuttingCounter.OnCut += ContainerCounter_OnPlayerCut;
     }
 
+    private void OnDisable()
+    {
+        _cuttingCounter.OnCut -= ContainerCounter_OnPlayerCut;
+    }
+
     private void ContainerCounter_OnPlayerCut(object sender, System.EventArgs e)
     {
         _animator.SetTrigger(CUT);

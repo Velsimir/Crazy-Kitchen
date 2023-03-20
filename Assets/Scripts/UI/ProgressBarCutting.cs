@@ -12,16 +12,11 @@ public class ProgressBarCutting : MonoBehaviour
     {
         _progressBar = _hasProgressBarGameObject.GetComponent<IProgressBar>();
          
-        _progressBar.OnProgressChanged += OnProgressChanged;
-
         _cuttingImage.fillAmount = 0f;
 
-        Hide();
-    }
+        _progressBar.OnProgressChanged += OnProgressChanged;
 
-    private void OnDisable()
-    {
-        _progressBar.OnProgressChanged -= OnProgressChanged;
+        Hide();
     }
 
     private void OnProgressChanged(object sender, IProgressBar.OnProgressChangedEventArgs e)

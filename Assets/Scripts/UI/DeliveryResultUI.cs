@@ -32,12 +32,6 @@ public class DeliveryResultUI : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void OnDisable()
-    {
-        DeliveryOrders.Instance.OnRecipeSuccess -= DeliveryOrdersOnRecipeSuccess;
-        DeliveryOrders.Instance.OnRecipeFailed -= DeliveryOrdersOnRecipeFailed;
-    }
-
     private void DeliveryOrdersOnRecipeFailed(object sender, System.EventArgs e)
     {
         gameObject.SetActive(true);

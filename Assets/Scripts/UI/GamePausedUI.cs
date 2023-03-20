@@ -34,12 +34,6 @@ public class GamePausedUI : MonoBehaviour
         Hide();
     }
 
-    private void OnDisable()
-    {
-        GameStates.Instance.OnGamePaused -= GameStatesOnGamePaused;
-        GameStates.Instance.OnGameUnpaused -= GameStatesOnGameUnpaused;
-    }
-
     private void GameStatesOnGameUnpaused(object sender, System.EventArgs e)
     {
         Hide();

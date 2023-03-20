@@ -9278,7 +9278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ff712df24a7b4e309203f32df97355e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gamePlayingTimerMax: 120
+  _gamePlayingTimerMax: 60
 --- !u!4 &1238646348
 Transform:
   m_ObjectHideFlags: 0
@@ -14637,7 +14637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76a4f4a19c3694c13bab68414ef9d7c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _recepiSOList: {fileID: 11400000, guid: 0b135430d9bc840acb6248c587b18b66, type: 2}
+  _recepiSOList: {fileID: 11400000, guid: 3fae31ef91b69435fb5a616a3e1a8cff, type: 2}
   _waitingRecepiSOList: []
   _recepiSpawnTimerMax: 4
   _waitingRecepiMax: 4

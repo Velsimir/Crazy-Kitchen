@@ -27,12 +27,6 @@ public class StoveCounterSound : MonoBehaviour
         AlarmWarning();
     }
 
-    private void OnDisable()
-    {
-        _stoveCounter.OnStateChange -= StoveCounterOnStateChange;
-        _stoveCounter.OnProgressChanged -= StoveCounterOnProgressChanged;
-    }
-
     private void AlarmWarning()
     {
         if (_isWorningSound)
