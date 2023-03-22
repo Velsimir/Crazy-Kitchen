@@ -13,14 +13,14 @@ public class KitchenObject : MonoBehaviour
         return _kitchenObjectSO;
     }
 
-    public void SetKitchenObjectParent(IKitchenObjectParent KitchenObject)
+    public void SetKitchenObjectParent(IKitchenObjectParent kitchenObject)
     {
         if (_KitchenObjectParent != null)
         {
             _KitchenObjectParent.ClearKithcenObject();
         }
 
-        _KitchenObjectParent = KitchenObject;
+        _KitchenObjectParent = kitchenObject;
 
         if (_KitchenObjectParent.HasKithcenObject())
         {

@@ -19,6 +19,19 @@ public class ContainerCounterAnimator : MonoBehaviour
         _containerCounter.OnPlayerGrabbedObject += ContainerCounter_OnPlayerGrabbedObject;
     }
 
+    private void OnDestroy()
+    {
+        _containerCounter.OnPlayerGrabbedObject -= ContainerCounter_OnPlayerGrabbedObject;
+    }
+
+    private void OnApplicationFocus(bool focus)
+    {
+        if (focus == false)
+            _containerCounter.OnPlayerGrabbedObject -= ContainerCounter_OnPlayerGrabbedObject;
+        else
+            _containerCounter.OnPlayerGrabbedObject += ContainerCounter_OnPlayerGrabbedObject;
+    }
+
     private void ContainerCounter_OnPlayerGrabbedObject(object sender, System.EventArgs e)
     {
         _animator.SetTrigger(OPEN_CLOSE);

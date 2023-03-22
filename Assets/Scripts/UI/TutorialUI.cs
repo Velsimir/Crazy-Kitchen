@@ -17,7 +17,7 @@ public class TutorialUI : MonoBehaviour
 
     private void Start()
     {
-        GameInput.Instanse.OnBindingRebind += GameInputOnBindingRebind;
+        GameInput.Instanse.BindingRebind += GameInputOnBindingRebind;
         GameStates.Instance.OnStateChanged += GameStatesOnStateChanged;
 
         UpdateVisual();
@@ -26,7 +26,7 @@ public class TutorialUI : MonoBehaviour
 
     private void OnDisable()
     {
-        GameInput.Instanse.OnBindingRebind -= GameInputOnBindingRebind;
+        GameInput.Instanse.BindingRebind -= GameInputOnBindingRebind;
         GameStates.Instance.OnStateChanged -= GameStatesOnStateChanged;
     }
 

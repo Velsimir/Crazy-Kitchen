@@ -27,6 +27,26 @@ public class StoveCounterSound : MonoBehaviour
         AlarmWarning();
     }
 
+    private void OnDestroy()
+    {
+        _stoveCounter.OnProgressChanged -= StoveCounterOnProgressChanged;
+        _stoveCounter.OnStateChange -= StoveCounterOnStateChange;
+    }
+
+    private void OnApplicationFocus(bool focus)
+    {
+        if (focus == false)
+        {
+            _stoveCounter.OnProgressChanged += StoveCounterOnProgressChanged;
+            _stoveCounter.OnStateChange += StoveCounterOnStateChange;
+        }
+        else
+        {
+            _stoveCounter.OnProgressChanged -= StoveCounterOnProgressChanged;
+            _stoveCounter.OnStateChange -= StoveCounterOnStateChange;
+        }
+    }
+
     private void AlarmWarning()
     {
         if (_isWorningSound)

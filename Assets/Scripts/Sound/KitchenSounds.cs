@@ -22,9 +22,9 @@ public class KitchenSounds : MonoBehaviour
     {
         DeliveryOrders.Instance.OnRecipeSuccess += DeliveryOrdersOnRecipeSuccess;
         DeliveryOrders.Instance.OnRecipeFailed += DeliveryOrdersOnRecipeFailed;
-        CuttingCounter.OnAnyCut += CuttingCounterOnAnyCut;
+        CuttingCounter.AnyCut += CuttingCounterOnAnyCut;
         Player.Instance.OnPickSomething += PlayerOnPickSomething;
-        BaseCounter.OnAnyObjectPlacedHere += BaseCounterOnAnyObjectPlacedHere;
+        BaseCounter.AnyObjectPlacedHere += BaseCounterOnAnyObjectPlacedHere;
         TrashCounter.OnTrash += TrashCounterOnTrash;
     }
 
@@ -32,9 +32,9 @@ public class KitchenSounds : MonoBehaviour
     {
         DeliveryOrders.Instance.OnRecipeSuccess -= DeliveryOrdersOnRecipeSuccess;
         DeliveryOrders.Instance.OnRecipeFailed -= DeliveryOrdersOnRecipeFailed;
-        CuttingCounter.OnAnyCut -= CuttingCounterOnAnyCut;
+        CuttingCounter.AnyCut -= CuttingCounterOnAnyCut;
         Player.Instance.OnPickSomething -= PlayerOnPickSomething;
-        BaseCounter.OnAnyObjectPlacedHere -= BaseCounterOnAnyObjectPlacedHere;
+        BaseCounter.AnyObjectPlacedHere -= BaseCounterOnAnyObjectPlacedHere;
         TrashCounter.OnTrash -= TrashCounterOnTrash;
     }
 

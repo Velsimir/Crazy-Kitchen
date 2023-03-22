@@ -8,15 +8,28 @@ public class ProgressBarCutting : MonoBehaviour
 
     private IProgressBar _progressBar;
 
-    private void Start()
+    private void Awake()
     {
         _progressBar = _hasProgressBarGameObject.GetComponent<IProgressBar>();
-         
         _cuttingImage.fillAmount = 0f;
 
         _progressBar.OnProgressChanged += OnProgressChanged;
+        Debug.Log("Подписался");
 
         Hide();
+    }
+
+    private void OnDestroy()
+    {
+        _progressBar.OnProgressChanged -= OnProgressChanged;
+    }
+
+    private void OnApplicationFocus(bool focus)
+    {
+        if (focus == false)
+            _progressBar.OnProgressChanged -= OnProgressChanged;
+        else
+            _progressBar.OnProgressChanged += OnProgressChanged;
     }
 
     private void OnProgressChanged(object sender, IProgressBar.OnProgressChangedEventArgs e)

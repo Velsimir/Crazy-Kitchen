@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlatesCounter : BaseCounter
@@ -10,13 +11,15 @@ public class PlatesCounter : BaseCounter
     public event EventHandler OnPlatesSpawn;
     public event EventHandler OnPlatesRemoved;
 
-    private float _currentTimerSpawnPlate;
-    private float _defoultTimerSpawnPlate = 0f;
     private int _currentPlatesCount;
+    private Coroutine _coroutineSpanPlate;
 
     private void Update()
     {
-        SpawnPlates();
+        if (_coroutineSpanPlate == null)
+        {
+            _coroutineSpanPlate = StartCoroutine(TimerSpawnPlate());
+        }
     }
 
     public override void Interact(Player player)
@@ -34,20 +37,17 @@ public class PlatesCounter : BaseCounter
         }
     }
 
-    private void SpawnPlates()
+    private IEnumerator TimerSpawnPlate()
     {
-        _currentTimerSpawnPlate += Time.deltaTime;
+        yield return new WaitForSeconds(3);
 
-        if (_currentTimerSpawnPlate > _maxTimerSpawnPlate)
+        if (GameStates.Instance.IsGamePlaying() && _currentPlatesCount < _maxPlatesSpawnCount)
         {
-            _currentTimerSpawnPlate = _defoultTimerSpawnPlate;
-
-            if (GameStates.Instance.IsGamePlaying() && _currentPlatesCount < _maxPlatesSpawnCount)
-            {
-                _currentPlatesCount++;
-
-                OnPlatesSpawn?.Invoke(this, EventArgs.Empty);
-            }
+            _currentPlatesCount++;
+            OnPlatesSpawn?.Invoke(this, EventArgs.Empty);
         }
+
+        StopCoroutine(_coroutineSpanPlate);
+        _coroutineSpanPlate = null;
     }
 }

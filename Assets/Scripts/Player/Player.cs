@@ -41,8 +41,8 @@ public class Player : MonoBehaviour, IKitchenObjectParent
 
     private void Start()
     {
-        _gameInput.OnInteractAction += GameInput_OnInteractAction;
-        _gameInput.OnInteractAlternateAction += GameInput_OnInteractAlternateAction;
+        _gameInput.InteractAction += GameInput_OnInteractAction;
+        _gameInput.InteractAlternateAction += GameInput_OnInteractAlternateAction;
     }
 
     private void Update()
@@ -53,8 +53,8 @@ public class Player : MonoBehaviour, IKitchenObjectParent
 
     private void OnDisable()
     {
-        _gameInput.OnInteractAction -= GameInput_OnInteractAction;
-        _gameInput.OnInteractAlternateAction -= GameInput_OnInteractAlternateAction;
+        _gameInput.InteractAction -= GameInput_OnInteractAction;
+        _gameInput.InteractAlternateAction -= GameInput_OnInteractAlternateAction;
     }
 
     private void GameInput_OnInteractAlternateAction(object sender, EventArgs e)

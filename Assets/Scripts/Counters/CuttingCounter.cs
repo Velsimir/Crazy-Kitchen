@@ -5,9 +5,9 @@ public class CuttingCounter : BaseCounter, IProgressBar
 {
     [SerializeField] private CuttingRecepiSO[] _cuttingRecepiSOArray;
 
-    public static event EventHandler OnAnyCut;
+    public static event EventHandler AnyCut;
     public event EventHandler <IProgressBar.OnProgressChangedEventArgs>  OnProgressChanged;
-    public event EventHandler OnCut;
+    public event EventHandler Cut;
 
     private int _cuttingProgress;
     private int _minCuttingProgress = 0;
@@ -54,8 +54,8 @@ public class CuttingCounter : BaseCounter, IProgressBar
         {
             _cuttingProgress++;
 
-            OnCut?.Invoke(this, EventArgs.Empty);
-            OnAnyCut?.Invoke(this, EventArgs.Empty);
+            Cut?.Invoke(this, EventArgs.Empty);
+            AnyCut?.Invoke(this, EventArgs.Empty);
 
             CuttingRecepiSO cuttingRecepiSO = GetCuttingRecepiSOWithInput(GetKithcenObject().GetKitchenObjectSO());
 
@@ -77,7 +77,7 @@ public class CuttingCounter : BaseCounter, IProgressBar
 
     new public static void ResetStaticData()
     {
-        OnAnyCut = null;
+        AnyCut = null;
     }
 
     private bool HasRecepiWithInput(KitchenObjectSO inputKitchenObject)

@@ -24,6 +24,19 @@ public class PlateCompleteVisual : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        _plateKitchenObject.OnIngridientAdded -= PlateKitchenObject_OnIngridientAdded;
+    }
+
+    private void OnApplicationFocus(bool focus)
+    {
+        if (focus == false)
+            _plateKitchenObject.OnIngridientAdded -= PlateKitchenObject_OnIngridientAdded;
+        else
+            _plateKitchenObject.OnIngridientAdded += PlateKitchenObject_OnIngridientAdded;
+    }
+
     private void PlateKitchenObject_OnIngridientAdded(object sender, PlateKitchenObject.OnIngridientAddedEventArgs e)
     {
         foreach (KitchenObjectSO_GameObject kitchenObjectSO_GameObject in _kitchenObjectSO_GameObjectsList)

@@ -16,12 +16,12 @@ public class CuttingCounterAnimator : MonoBehaviour
 
     private void Start()
     {
-        _cuttingCounter.OnCut += ContainerCounter_OnPlayerCut;
+        _cuttingCounter.Cut += ContainerCounter_OnPlayerCut;
     }
 
     private void OnDisable()
     {
-        _cuttingCounter.OnCut -= ContainerCounter_OnPlayerCut;
+        _cuttingCounter.Cut -= ContainerCounter_OnPlayerCut;
     }
 
     private void ContainerCounter_OnPlayerCut(object sender, System.EventArgs e)

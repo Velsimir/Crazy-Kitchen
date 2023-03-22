@@ -7,10 +7,10 @@ public class GameInput : MonoBehaviour
     private const string PlayerPrefBindings = "InputBindings";
 
     public static GameInput Instanse { get; private set; }
-    public event EventHandler OnInteractAction;
-    public event EventHandler OnInteractAlternateAction;
-    public event EventHandler OnPause;
-    public event EventHandler OnBindingRebind;
+    public event EventHandler InteractAction;
+    public event EventHandler InteractAlternateAction;
+    public event EventHandler Pause;
+    public event EventHandler BindingRebind;
     public enum Binding
     {
         MoveUp,
@@ -151,7 +151,7 @@ public class GameInput : MonoBehaviour
             PlayerPrefs.SetString(PlayerPrefBindings, _playerInput.SaveBindingOverridesAsJson());
             PlayerPrefs.Save();
 
-            OnBindingRebind?.Invoke(this, EventArgs.Empty);
+            BindingRebind?.Invoke(this, EventArgs.Empty);
         })
         .Start();
     }
@@ -169,16 +169,16 @@ public class GameInput : MonoBehaviour
 
     private void Pause_performed(InputAction.CallbackContext obj)
     {
-        OnPause?.Invoke(this,EventArgs.Empty);
+        Pause?.Invoke(this,EventArgs.Empty);
     }
 
     private void InteractionAlternate_performed(InputAction.CallbackContext obj)
     {
-        OnInteractAlternateAction?.Invoke(this, EventArgs.Empty);
+        InteractAlternateAction?.Invoke(this, EventArgs.Empty);
     }
 
     private void Interaction_performed(InputAction.CallbackContext obj)
     {
-        OnInteractAction?.Invoke(this, EventArgs.Empty);
+        InteractAction?.Invoke(this, EventArgs.Empty);
     }
 }

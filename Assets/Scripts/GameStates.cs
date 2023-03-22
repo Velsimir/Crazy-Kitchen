@@ -32,8 +32,8 @@ public class GameStates : MonoBehaviour
 
     private void Start()
     {
-        GameInput.Instanse.OnPause += GameInputOnPause;
-        GameInput.Instanse.OnInteractAction += GameInputOnInteractAction;
+        GameInput.Instanse.Pause += GameInputOnPause;
+        GameInput.Instanse.InteractAction += GameInputOnInteractAction;
     }
 
     private void Update()
@@ -58,8 +58,8 @@ public class GameStates : MonoBehaviour
 
     private void OnDisable()
     {
-        GameInput.Instanse.OnPause -= GameInputOnPause;
-        GameInput.Instanse.OnInteractAction -= GameInputOnInteractAction;
+        GameInput.Instanse.Pause -= GameInputOnPause;
+        GameInput.Instanse.InteractAction -= GameInputOnInteractAction;
     }
 
     private void GameInputOnInteractAction(object sender, EventArgs e)
